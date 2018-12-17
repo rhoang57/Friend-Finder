@@ -9,7 +9,7 @@
 
 var friendsArray = [
     {
-      customerName: "Slimer",
+      name: "Slimer",
       photo: "https://cdn.shopify.com/s/files/1/1452/7530/products/slimer.jpg?v=1505206859",
       scores: [
           5,
