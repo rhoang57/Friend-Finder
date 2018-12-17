@@ -35,7 +35,17 @@ module.exports = function(app) {
 
   app.post("/api/friends", function(req, res) {
     // The compatibility logic will go here.
-   /*
-    */
+   
+    if (friendsData.length < 5) {
+      friendsData
+      .push(req.body);
+      res.json(true);
+    }
+    else {
+      waitListData.push(req.body);
+      res.json(false);
+    }
+  });
 
+ 
 };
