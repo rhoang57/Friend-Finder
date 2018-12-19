@@ -4,7 +4,7 @@
 // DATA
 // Below data will hold all of the survery results from potential friends.
 // Initially set dummy friend as Slimer.
-// The array you could have been set to an empty array as well.
+// This variable could have been set to an empty array as well.
 // ===============================================================================
 
 var friendsArray = [
@@ -26,5 +26,5 @@ var friendsArray = [
     }
   ];
   
-  // Export the "dummy" array of Slimer to be default. Below line makes the friendsArray it accessible to other files using require and list friends.js as the required file.
+  // Export the "dummy" array of Slimer to be default. The line below makes the friendsArray accessible to other files using require and list friends.js as the required file.
   module.exports = friendsArray;

@@ -14,14 +14,14 @@ var friendsData = require("../data/friends");
 // ROUTING
 // ===============================================================================
 
-module.exports = function(app) {
+module.exports = function (app) {
   // API GET Requests
   // Below code handles when users "visit" a page.
   // In the below case when a user visits a link
   // (ex: localhost:PORT/api/friends... they are shown a JSON of all possible friend matches)
   // ---------------------------------------------------------------------------
 
-  app.get("/api/friends", function(req, res) {
+  app.get("/api/friends", function (req, res) {
     res.json(friendsData);
   });
 
@@ -33,19 +33,42 @@ module.exports = function(app) {
   // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
 
-  app.post("/api/friends", function(req, res) {
+  app.post("/api/friends", function (req, res) {
     // The compatibility logic will go here.
-   
-    if (friendsData.length < 5) {
-      friendsData
-      .push(req.body);
-      res.json(true);
+    //Check to see if I can grab user input
+    // console.log(req.body);
+    //JSON objects that are on api/friends show up with below console log without adding user input into array of objects!
+    //console.log(friendsData);
+    //var closestFriendIndex is initially set to 0 so the first user to input would have at least one closest match, which would be "Slimer" by default
+    //var smallestDifference is initially set to 40 since that is the maximum amount of difference possible and will be called later in the "if" statement to ensure that the new "smallestDifference" will change 
+    var userData = req.body;
+    var closestFriendIndex = 0;
+    var smallestDifference = 40;
+
+    for (i = 0; i < friendsData.length; i++) {
+      var actualDifference = 0;
+      for (x = 0; x < 10; x++) {
+        var difference = Math.abs(userData.scores[x] - friendsData[i].scores[x]);
+        actualDifference += difference;
+      }
+
+      if (actualDifference < smallestDifference) {
+        closestFriendIndex = i;
+        smallestDifference = actualDifference;
+      }
     }
-    else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
+
+    /*console.log(userData.scores);
+    console.log(friendsData[0].scores);
+    console.log("closestFriendIndex: " + closestFriendIndex);
+    console.log("Smallest Difference: " + smallestDifference);
+    */
+
+    friendsData.push(userData);
+    res.json(friendsData[closestFriendIndex]);
+
+
   });
 
- 
+
 };
